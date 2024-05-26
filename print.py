@@ -30,6 +30,10 @@ def encode_raster_transfer(data):
         print("chunk", i)
         chunk = data[i : i + chunk_size]
 
+        if all(b == 0 for b in chunk):
+            buf.extend(b'Z')
+            continue
+
         # Encode as tiff
         packed_chunk = packbits.encode(chunk)
 
