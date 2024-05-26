@@ -5,37 +5,26 @@
 import datetime
 import socket
 
-import treepoem
 from PIL import Image, ImageDraw, ImageFont
 
 HOST = "10.10.10.31"
 PORT = 9100
 text = datetime.date.today().isoformat()
-datamatrix_data = text
 
 label_height = 64
-
-datamatrix_width = label_height
 
 text_size = 24
 text_border_width = 10
 
-label_length = int(datamatrix_width  + 2 * text_border_width + ((len(text)) * (text_size) * 0.6))
+label_length = int(2 * text_border_width + ((len(text)) * (text_size) * 0.6))
 
 label = Image.new('1', (label_length, label_height), color = 1)
 
 fnt = ImageFont.truetype('./RobotoMono-Regular.ttf', text_size)
 d = ImageDraw.Draw(label)
-d.text((datamatrix_width + text_border_width, 15), text, font=fnt, color = 1)
+d.text((text_border_width, 15), text, font=fnt, color = 1)
 
 label = label.rotate(270, expand=1)
-
-datamatrix = treepoem.generate_barcode(
-    barcode_type = 'datamatrix',
-    data = datamatrix_data,
-).resize((datamatrix_width, datamatrix_width), resample=Image.Resampling.NEAREST).rotate(270)
-
-label.paste(datamatrix)
 
 image_data = bytearray(label.tobytes())
 

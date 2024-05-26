@@ -6,7 +6,6 @@ name = "pypi"
 [packages]
 python-escpos = {extras = ["all"], version = "*"}
 pillow = "*"
-treepoem = "*"
 
 [dev-packages]
 
