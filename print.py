@@ -62,7 +62,8 @@ label = Image.new('1', (label_length, label_height), color = 1)
 
 fnt = ImageFont.truetype('./RobotoMono-Regular.ttf', text_size)
 d = ImageDraw.Draw(label)
-d.text((text_border_width, 15), text, font=fnt, color = 1)
+d.text((text_border_width, 21), "opened", font=fnt, color = 1)
+d.text((text_border_width, 68), text, font=fnt, color = 1)
 
 label = label.rotate(270, expand=1)
 
