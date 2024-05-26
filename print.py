@@ -21,7 +21,7 @@ def encode_raster_transfer(data):
 
     # Send in chunks of 1 line (128px @ 1bpp = 16 bytes)
     # This mirrors the official app from Brother. Other values haven't been tested.
-    chunk_size = label_height / 8
+    chunk_size = math.ceil(label_height / 8)
 
     for i in range(0, len(data), chunk_size):
         print("chunk", i)
@@ -70,14 +70,15 @@ for i in range(len(image_data)):
   image_data[i] = 255 - image_data[i]
 
 data = b'\x00' * 100
-data += b'\x1B\x40' # print start
-data += b'\x1B\x69\x4D\x40' # pre-cut
-data += b'\x1B\x69\x4B\x08' # end cut
-data += b'\x4d\x02' # compression
+data += b'\x1B\x40'  # print start
+data += b'\x1B\x69\x4D\x40'  # pre-cut
+data += b'\x1B\x69\x4B\x08'  # end cut
+data += b'\x4d\x02'  # TIFF compression
 
 data += encode_raster_transfer(data)
 
-data += b'\x1A' # print end
+data += b'\x1A'  # print end
+data += b'\x1b\x40'  # reinitialize
 
 with open('sent', 'w') as f:  # DEBUG
     f.buffer.write(data)  # DEBUG
