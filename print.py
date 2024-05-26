@@ -78,7 +78,7 @@ data += b'\x1B\x69\x4D\x40'  # pre-cut
 data += b'\x1B\x69\x4B\x08'  # end cut
 data += b'\x4d\x02'  # TIFF compression
 
-data += encode_raster_transfer(data)
+data += encode_raster_transfer(image_data)
 
 data += b'\x1A'  # print end
 data += b'\x1b\x40'  # reinitialize
