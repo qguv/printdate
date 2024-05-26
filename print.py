@@ -13,15 +13,15 @@ from PIL import Image, ImageDraw, ImageFont
 HOST = "10.10.10.31"
 PORT = 9100
 text = datetime.date.today().isoformat()
-tape_width = 12  # mm
+label_height = 64
 
-def encode_raster_transfer(data, label_height):
+def encode_raster_transfer(data):
     """ Encode 1 bit per pixel image data for transfer over serial to the printer """
     buf = bytearray()
 
     # Send in chunks of 1 line (128px @ 1bpp = 16 bytes)
     # This mirrors the official app from Brother. Other values haven't been tested.
-    chunk_size = math.ceil(label_height / 8)
+    chunk_size = label_height / 8
 
     for i in range(0, len(data), chunk_size):
         print("chunk", i)
@@ -45,24 +45,6 @@ def encode_raster_transfer(data, label_height):
 
 TRANSFER_COMMAND = b"\x47"
 unsigned_char = struct.Struct('B')
-
-label_height = {
-  3.5: 24,
-  6: 42,
-  9: 64,
-  12: 84,
-  18: 128,
-  24: 170,
-}[tape_width]
-
-printable_height = {
-  3.5: 24,
-  6: 32,
-  9: 50,
-  12: 70,
-  18: 112,
-  24: 128,
-}
 
 text_size = 24
 text_border_width = 10
@@ -93,7 +75,7 @@ data += b'\x1B\x69\x4D\x40' # pre-cut
 data += b'\x1B\x69\x4B\x08' # end cut
 data += b'\x4d\x02' # compression
 
-data += encode_raster_transfer(data, label_height)
+data += encode_raster_transfer(data)
 
 data += b'\x1A' # print end
 
