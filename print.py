@@ -78,6 +78,7 @@ for i in range(len(image_data)):
 
 data = b'\x00' * 100
 data += b'\x1B\x40'  # print start
+data += b'\x1B\x69\x61\x01'  # switch to raster mode
 data += b'\x1B\x69\x4D\x40'  # pre-cut
 data += b'\x1B\x69\x4B\x08'  # end cut
 data += b'\x4d\x02'  # TIFF compression
