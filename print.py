@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 
 # adapted from https://github.com/adambartyzal/labelprint/blob/main/labelprint.py
+# and https://gist.github.com/dogtopus/64ae743825e42f2bb8ec79cea7ad2057
+# and https://gist.github.com/stecman/ee1fd9a8b1b6f0fdd170ee87ba2ddafd
+# and https://github.com/robby-cornelissen/pt-p710bt-label-maker?tab=readme-ov-file
 
 import datetime
 import socket
@@ -13,7 +16,7 @@ from PIL import Image, ImageDraw, ImageFont
 HOST = "10.10.10.31"
 PORT = 9100
 text = datetime.date.today().isoformat()
-label_height = 64
+label_height = 128
 
 def encode_raster_transfer(data):
     """ Encode 1 bit per pixel image data for transfer over serial to the printer """
