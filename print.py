@@ -85,7 +85,6 @@ data += b'\x4d\x02'  # TIFF compression
 data += encode_raster_transfer(image_data)
 
 data += b'\x1A'  # print end
-data += b'\x1b\x40'  # reinitialize
 
 with open('sent', 'w') as f:  # DEBUG
     f.buffer.write(data)  # DEBUG
